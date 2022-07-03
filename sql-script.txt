@@ -1,0 +1,402 @@
+create table Accounts
+(
+    Id serial primary key ,
+    Username varchar(255) not null,
+    Password varchar(255) not null
+);
+
+insert into Accounts(Username, Password)
+values ('User', 'e10adc3949ba59abbe56e057f20f883e');
+
+insert into Accounts(Username, Password)
+values ('User2', 'e10adc3949ba59abbe56e057f20f883e');
+
+insert into Accounts(Username, Password)
+values ('ContentManagerUser', 'e10adc3949ba59abbe56e057f20f883e');
+
+
+create table Roles(
+    Id serial primary key,
+    Name varchar(255) not null
+);
+insert into Roles(Name)
+values ('ContentManager');
+
+create table Account_Roles(
+    Id serial primary key,
+    Account_Id     int not null references Accounts,
+    Role_Id     int not null references Roles
+);
+insert into Account_Roles(Account_Id, Role_Id)
+values (3,1);
+
+create table Stars
+(
+    Id serial primary key,
+    Name varchar(100) not null,
+    Surname varchar(100) not null
+);
+
+insert into Stars(Name, Surname)
+values ('Christian', 'Bale');
+insert into Stars(Name, Surname)
+values ('Heath', 'Ledger');
+insert into Stars(Name, Surname)
+values ('Michael', 'Caine');
+insert into Stars(Name, Surname)
+values ('Maggie', 'Gyllenhaal');
+insert into Stars(Name, Surname)
+values ('Morgan', 'Freeman');
+insert into Stars(Name, Surname)
+values ('Gary', 'Oldman');
+insert into Stars(Name, Surname)
+values ('Aaron', 'Eckhart');
+insert into Stars(Name, Surname)
+values ('Tom', 'Hardy');
+insert into Stars(Name, Surname)
+values ('Anne', 'Hathaway');
+
+
+insert into Stars(Name, Surname)
+values ('Rory', 'Kinnear');
+insert into Stars(Name, Surname)
+values ('Lindsay', 'Duncan');
+insert into Stars(Name, Surname)
+values ('Donald', 'Sumpter');
+
+insert into Stars(Name, Surname)
+values ('Daniel', 'Kaluuya');
+insert into Stars(Name, Surname)
+values ('Jessica Brown', 'Findlay');
+insert into Stars(Name, Surname)
+values ('Rupert', 'Everett');
+
+insert into Stars(Name, Surname)
+values ('Toby', 'Kebbell');
+insert into Stars(Name, Surname)
+values ('Jodie', 'Whittaker');
+insert into Stars(Name, Surname)
+values ('Tom', 'Cullen');
+
+insert into Stars(Name, Surname)
+values ('Hayley', 'Atwell');
+insert into Stars(Name, Surname)
+values ('Domhnall', 'Gleeson');
+insert into Stars(Name, Surname)
+values ('Claire', 'Keelan');
+
+insert into Stars(Name, Surname)
+values ('Lobo', 'Chan');
+insert into Stars(Name, Surname)
+values ('Cillian', 'Murphy');
+insert into Stars(Name, Surname)
+values ('Benjamin', 'Zephaniah');
+
+insert into Stars(Name, Surname)
+values ('Sam', 'Neill');
+insert into Stars(Name, Surname)
+values ('Helen', 'McCrory');
+
+
+create table Directors
+(
+    Id serial primary key,
+    Name varchar(100) not null,
+    Surname varchar(100) not null
+);
+
+insert into Directors(Name, Surname)
+values ('Christopher', 'Nolan');
+insert into Directors(Name, Surname)
+values ('Otto', 'Bathurst');
+insert into Directors(Name, Surname)
+values ('Euros', 'Lyn');
+insert into Directors(Name, Surname)
+values ('Brian', 'Welsh');
+insert into Directors(Name, Surname)
+values ('Owen', 'Harris');
+
+
+create table Writers
+(
+    Id serial primary key,
+    Name varchar(100) not null,
+    Surname varchar(100) not null
+);
+
+insert into Writers(Name, Surname)
+values ('Jonathan', 'Nolan');
+insert into Writers(Name, Surname)
+values ('Charlie', 'Brooker');
+insert into Writers(Name, Surname)
+values ('Jesse', 'Armstrong');
+insert into Writers(Name, Surname)
+values ('Steven', 'Knight');
+
+create table Titles
+(
+    Id          serial       primary key,
+    Created_At timestamp        not null,
+    Updated_At timestamp        not null,
+    Name       varchar(100)  not null,
+    Type       int           not null, --(movie 0, series 1)
+    Imdb_Id      int          not null,
+    Is_Deleted   boolean      not null,
+
+    Description varchar      not null,
+    Rating      decimal      not null,
+    Release_Date date        not null,
+    Duration    int          not null
+);
+
+create index titles_name_index
+    on Titles (Name);
+
+insert into Titles(Created_At, Updated_At,Name,  Type, Imdb_Id, Is_Deleted, Description, Rating, Release_Date, Duration)
+values ('2022-06-25', '2022-06-25', 'The Dark Knight', 0, 1, false,'When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.',
+        9.0, '2008-06-25', 152);
+insert into Titles(Created_At, Updated_At,Name, Type, Imdb_Id, Is_Deleted, Description, Rating, Release_Date, Duration)
+values ('2022-06-25', '2022-06-25','The Dark Knight Rises', 0, 2,false,'Eight years after the Joker''s reign of anarchy, Batman, with the help of the enigmatic Catwoman, is forced from his exile to save Gotham City from the brutal guerrilla terrorist Bane.',
+        8.4, '2012-07-27', 164);
+insert into Titles(Created_At, Updated_At,Name, Type, Imdb_Id, Is_Deleted, Description, Rating, Release_Date, Duration)
+values ('2022-06-25', '2022-06-25','Black Mirror', 1, 3,false, 'An anthology series exploring a twisted, high-tech multiverse where humanity''s greatest innovations and darkest instincts collide.',
+        8.8, '2016-09-07',60);
+insert into Titles(Created_At, Updated_At,Name, Type, Imdb_Id, Is_Deleted, Description, Rating, Release_Date, Duration)
+values ('2022-06-25', '2022-06-25','Peaky Blinders', 1, 4,false,'A gangster family epic set in 1900s England, centering on a gang who sew razor blades in the peaks of their caps, and their fierce boss Tommy Shelby.',
+        8.8, '2013-09-12',60);
+
+
+create table Genres
+(
+    Id          serial       primary key,
+    Name       varchar(100)  not null
+);
+create index genres_name_index
+    on Genres (Name);
+
+insert into Genres(Name)
+values ('Action');
+insert into Genres(Name)
+values ('Crime');
+insert into Genres(Name)
+values ('Drama');
+insert into Genres(Name)
+values ('Thriller');
+insert into Genres(Name)
+values ('Mystery');
+insert into Genres(Name)
+values ('Sci-Fi');
+
+
+create table Title_Genres
+(
+    Id          serial       primary key,
+    Title_Id     int not null references Titles,
+    Genre_Id     int not null references Genres
+);
+create unique index titlegenres_titleid_genreid_uindex
+    on Title_Genres (Title_Id, Genre_Id);
+
+insert into Title_Genres(Title_Id, Genre_Id)
+values (1,1),(1,2),(1,3),(1,4);
+insert into Title_Genres(Title_Id, Genre_Id)
+values (2,1),(2,3);
+insert into Title_Genres(Title_Id, Genre_Id)
+values (3,3),(3,5),(3,6),(3,4);
+insert into Title_Genres(Title_Id, Genre_Id)
+values (4,2),(4,3);
+
+create table Seasons(
+    Id serial primary key,
+    Title_Id int not null references Titles,
+    Number int not null
+);
+create unique index seasons_titleid_number_uindex
+    on Seasons (Title_Id, Number);
+
+insert into Seasons(Title_Id, Number)
+values (3,1);
+insert into Seasons(Title_Id, Number)
+values (3,2);
+
+insert into Seasons(Title_Id, Number)
+values (4,1);
+
+create table Episodes(
+    Id          serial       primary key,
+    Title_Id     int not null references Titles,
+
+
+    Audio       varchar(100)        not null, --it hold only link
+    Subtitles   varchar(100)        not null, --it hold only link
+
+    Director_Id  int not null  references Directors,
+    Writer_Id    int not null  references Writers
+);
+
+insert into Episodes(Title_Id, Audio, Subtitles, Director_Id, Writer_Id)
+values (1, 'the-dark-knight-audio-file-link', 'the-dark-knight-subtitles-file-link', 1, 1);
+
+insert into Episodes(Title_Id, Audio, Subtitles, Director_Id, Writer_Id)
+values (2,  'the-dark-knight-rises-audio-file-link', 'the-dark-knight-rises-subtitles-file-link', 1, 1);
+
+insert into Episodes(Title_Id, Audio, Subtitles, Director_Id, Writer_Id)
+values (3, 'black-mirror-first-season-first-episode-audio-file-link', 'black-mirror-first-season-first-episode-subtitles-file-link', 2, 2);
+
+insert into Episodes(Title_Id, Audio, Subtitles, Director_Id, Writer_Id)
+values (3, 'black-mirror-first-season-second-episode-audio-file-link', 'black-mirror-first-season-second-episode-subtitles-file-link', 3, 2);
+
+insert into Episodes(Title_Id, Audio, Subtitles, Director_Id, Writer_Id)
+values (3,  'black-mirror-first-season-third-episode-audio-file-link', 'black-mirror-first-season-third-episode-subtitles-file-link', 4, 3);
+
+insert into Episodes(Title_Id,  Audio, Subtitles, Director_Id, Writer_Id)
+values (3,  'black-mirror-second-season-first-episode-audio-file-link', 'black-mirror-second-season-first-episode-subtitles-file-link', 5, 2);
+
+insert into Episodes(Title_Id, Audio, Subtitles, Director_Id, Writer_Id)
+values (4, 'peaky-blinders-first-season-first-episode-audio-file-link', 'black-mirror-second-season-first-episode-subtitles-file-link', 5, 4);
+
+insert into Episodes(Title_Id, Audio, Subtitles, Director_Id, Writer_Id)
+values (4, 'peaky-blinders-first-season-second-episode-audio-file-link', 'black-mirror-second-season-first-episode-subtitles-file-link', 5, 4);
+
+create table Season_Episodes(
+    Id          serial       primary key,
+    Title_Id    int not null references Titles,
+    Season_Id    int not null references Seasons,
+    Episode_Id   int not null references Episodes,
+    Name        varchar(100) not null,
+    Number      int not null,
+
+    Description varchar      not null,
+    Rating      decimal      not null,
+    Release_Date date        not null,
+    Duration    int          not null
+);
+
+create unique index seasonepisodes_titleid_seasonid_episodeid_uindex
+    on Season_Episodes (Title_Id, Season_Id, Episode_Id);
+
+insert into Season_Episodes(Title_Id, Season_Id, Episode_Id, Name, Number, Description, Rating, Release_Date, Duration)
+values (3, 1, 3, 'The National Anthem', 1,'Prime Minister Michael Callow faces a shocking dilemma when Princess Susannah, a much-loved member of the Royal Family, is kidnapped.',
+        7.7, '2011-12-04', 44),
+       (3, 1, 4, 'Fifteen Million Merits',2,'In a world where people''s lives consist of riding exercise bikes to gain credits, Bing tries to help a woman get on to a singing competition show.',
+        8.0, '2011-12-11', 62),
+       (3, 1,5,'The Entire History of You',3,'In the near future, everyone has access to a memory implant that records everything they do, see and hear. You need never forget a face again - but is that always a good thing?',
+        8.5, '2011-12-18', 49);
+insert into Season_Episodes(Title_Id, Season_Id, Episode_Id, Name, Number, Description, Rating, Release_Date, Duration)
+values (3, 2, 6, 'Be Right Back', 1,'After learning about a new service that lets people stay in touch with the deceased, a lonely, grieving Martha reconnects with her late lover.',
+        8.0, '2013-02-11', 48);
+insert into Season_Episodes(Title_Id, Season_Id, Episode_Id, Name, Number, Description, Rating, Release_Date, Duration)
+values (4, 3, 7, 'Episode #1.1', 1,'Thomas Shelby plans to fix a horse race; some guns turn up stolen.',
+        8.0, '2013-09-12', 58),
+       (4, 3, 8, 'Episode #1.2', 2,'Thomas Shelby starts a feud with a gypsy family and finally meets with Inspector Campbell to talk about the stolen guns.',
+        8.2, '2013-09-19', 58);
+
+create table Episode_Stars(
+    Id serial primary key,
+    Episode_Id int not null references Episodes,
+    Star_Id int not null references Stars
+);
+create unique index episodestars_episodeid_starid_uindex
+    on Episode_Stars (Episode_Id, Star_Id);
+
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (1, 1);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (1, 2);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (1, 3);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (1, 4);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (1, 5);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (1, 6);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (1, 7);
+
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (2, 1);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (2, 6);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (2, 8);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (2, 9);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (2, 3);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (2, 5);
+
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (3, 10);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (3, 11);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (3, 12);
+
+
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (4, 13);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (4, 14);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (4, 15);
+
+
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (5, 16);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (5, 17);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (5, 18);
+
+
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (6, 19);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (6, 20);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (6, 21);
+
+
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (7, 22);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (7, 23);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (7, 24);
+
+
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (8, 23);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (8, 25);
+insert into Episode_Stars(Episode_Id, Star_Id)
+values (8, 26);
+
+create table Favorites
+(
+    Id serial primary key,
+    Title_Id int not null references Titles,
+    Account_Id int not null references Accounts
+);
+create unique index favorites_titleid_accountid_uindex
+    on Favorites (Title_Id, Account_Id);
+
+insert into Favorites(Title_Id, Account_Id)
+values (1, 1);
+insert into Favorites(Title_Id, Account_Id)
+values (2, 1);
+insert into Favorites(Title_Id, Account_Id)
+values (3, 1);
+insert into Favorites(Title_Id, Account_Id)
+values (4, 1);
+
+insert into Favorites(Title_Id, Account_Id)
+values (1, 2);
+insert into Favorites(Title_Id, Account_Id)
+values (4, 2);
+
+insert into Favorites(Title_Id, Account_Id)
+values (1, 3);
+
